@@ -21,6 +21,8 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 42px;
+    font-size: 18px;
+    margin-bottom: 40px;
   }
   .profile-pic__image {
   width: 80px;
