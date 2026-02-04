@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import ProfilePic from './components/ProfilePic.vue';
+import CategoryList from './components/CategoryList.vue';
 </script>
 
 <template>
   <div class="app">
     <nav class="nav">
       <ProfilePic />
+      <CategoryList />
     </nav>
     <main>Контент
     </main>
