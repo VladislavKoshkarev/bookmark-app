@@ -1,9 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ProfilePic from './components/ProfilePic.vue';
+</script>
 
 <template>
   <div class="app">
-    <nav class="nav">Меню</nav>
-    <main>Контент</main>
+    <nav class="nav">
+      <ProfilePic />
+    </nav>
+    <main>Контент
+    </main>
   </div>
 </template>
 
