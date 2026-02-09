@@ -7,10 +7,10 @@ export const router = createRouter({
   {
     path: '/main', component: () => import('./pages/MainView.vue'),
     children: [{
-    path: '', component: () => import('./components/TestComponent.vue'), name: 'main',
+    path: '', component: () => import('./pages/IndexView.vue'), name: 'main',
   },
   {
-    path: 'new', component: () => import('./components/TestComponent2.vue')
+    path: ':alias', component: () => import('./pages/CategoryView.vue')
   }] 
   }],
   history: createWebHistory(),
