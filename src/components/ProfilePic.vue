@@ -1,18 +1,13 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useProfileStore } from '@/stores/profile.store';
+import { UserButton, useUser } from '@clerk/vue';
+const { user } = useUser()
 
-const store = useProfileStore()
-
-onMounted(() => {
-  store.fetchProfile();
-})
 </script>
 
 <template>
-  <div class="profile-avatar" v-if="store.profile">
-    <img src="/public/avatar.png" class="profile-pic__image" alt="Изображение пользователя">
-    <div>Привет, <strong>{{ store.profile.name }}</strong></div>
+  <div class="profile-avatar">
+        <UserButton />
+        <div>Привет, <strong>{{ user?.firstName}}</strong></div>
   </div>
 </template>
 
