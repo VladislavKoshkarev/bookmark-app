@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CategoryHeader from '@/components/categoryHeader.vue';
 import type { Category } from '@/interfaces/category';
 import { useBookmarksStore } from '@/stores/bookmarks.store';
 
@@ -38,9 +39,7 @@ onBeforeRouteUpdate((to) => {
 
 <template>
   <div class="index">
-    {{ category?.name }}
-    <h1 class="index__header">Добро пожаловать в Bookmarkly!</h1>
-    <p class="index__description">Чтобы начать пользоваться, выберите категорию закладок или создайте новую</p>
+    <CategoryHeader v-if="category" :category="category"/>
   </div>
 </template>
 
