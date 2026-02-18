@@ -24,11 +24,15 @@ export const useCategoriesStore = defineStore('categories', () => {
 		});
 		fetchCategories();
 	}
+  async function deleteCategory(id: number) {
+		await http.delete<Category>(API_ROUTES.categories+ '/' + id);
+		fetchCategories();
+	}
   function getCategoryByAlias(alias: string): Category | undefined {
     if (typeof alias === 'string') {
       return categories.value.find((cat) => cat.alias === alias)
     }
   }
 
-	return { categories, fetchCategories, createCategory, getCategoryByAlias, updateCategory }
+	return { categories, fetchCategories, createCategory, getCategoryByAlias, updateCategory, deleteCategory }
 })

@@ -7,12 +7,14 @@ import TrashIcon from '@/icons/TrashIcon.vue';
 import OkIcon from '@/icons/OkIcon.vue';
 import InputString from './InputString.vue';
 import { useCategoriesStore } from '@/stores/categories.store';
+import { useRouter } from 'vue-router';
 
 
 const { category } = defineProps<{ category: Category }>()
 const isEdited = ref<boolean>();
 const newCategoryName = ref<string>(category.name)
 const categoriesStore = useCategoriesStore();
+const router = useRouter();
 
 function toggleEdit() {
   isEdited.value = !isEdited.value
@@ -25,22 +27,26 @@ function updateCategory() {
   return
  }
 }
+function deleteCategory() {
+  categoriesStore.deleteCategory(category.id)
+  router.push({ name: 'main' })
+}
 </script>
 
 <template>
   <div class="category-header">
     <h1 v-if="!isEdited" class="category-name">{{ category.name }}</h1>
-    <div v-if="isEdited">
+    <div class="category-header__edit" v-if="isEdited">
       <InputString v-model="newCategoryName" />
       <IconButton @click="updateCategory">
         <OkIcon/>
       </IconButton>
     </div>
-    <div v-if="!isEdited">
+    <div class="category-header__actions" v-if="!isEdited">
       <IconButton @click="toggleEdit">
         <EditIcon/>
       </IconButton>
-      <IconButton>
+      <IconButton @click="deleteCategory">
         <TrashIcon/>
       </IconButton>
     </div>
@@ -52,5 +58,10 @@ function updateCategory() {
     display: flex;
     justify-content: space-between;
     min-width: 100%;
+  }
+  .category-header__actions,
+  .category-header__edit {
+    display: flex;
+    gap: 16px;
   }
 </style>
