@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CategoryHeader from '@/components/categoryHeader.vue';
+import CategoryHeader from '@/components/CategoryHeader.vue';
 import type { Category } from '@/interfaces/category';
 import { useBookmarksStore } from '@/stores/bookmarks.store';
 
