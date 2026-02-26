@@ -3,7 +3,10 @@ import axios from 'axios';
 export const API_ROUTES = {
 	profile: `profile`,
 	categories: `categories`,
-  bookmarks: (id: number) => `categories/${id}/bookmarks`
+  bookmarks: {
+    get: (id: number) => `categories/${id}/bookmarks`,
+    delete: (id: number) => `bookmarks/${id}`
+  }
 };
 
 export const http = axios.create({

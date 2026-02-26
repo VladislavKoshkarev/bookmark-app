@@ -3,6 +3,6 @@ export interface Bookmark {
   category_id: number,
   url: string,
   title: string,
-  created_at: string,
+  created_at: Date,
   image: string
 }

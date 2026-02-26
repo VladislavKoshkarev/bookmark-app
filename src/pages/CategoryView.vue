@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BookmarkCard from '@/components/BookmarkCard.vue';
 import CategoryHeader from '@/components/CategoryHeader.vue';
 import type { Category } from '@/interfaces/category';
 import { useBookmarksStore } from '@/stores/bookmarks.store';
@@ -40,6 +41,12 @@ onBeforeRouteUpdate((to) => {
 <template>
   <div class="index">
     <CategoryHeader v-if="category" :category="category"/>
+    <div class="category-list">
+      <BookmarkCard
+      v-for="item in bookmarksStore.bookmarks" :key="item.id"
+      v-bind="item"
+      />
+    </div>
   </div>
 </template>
 
@@ -59,5 +66,11 @@ onBeforeRouteUpdate((to) => {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
+}
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+
 }
 </style>
