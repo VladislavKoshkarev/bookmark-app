@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BookmarkCard from '@/components/BookmarkCard.vue';
+import BookmarkSort from '@/components/BookmarkSort.vue';
 import CategoryHeader from '@/components/CategoryHeader.vue';
 import type { Category } from '@/interfaces/category';
 import { useBookmarksStore } from '@/stores/bookmarks.store';
@@ -13,11 +14,18 @@ const categoryStore = useCategoriesStore();
 const bookmarksStore = useBookmarksStore()
 const category = ref<Category>()
 
+function sortBookmarks(sort: string) {
+  bookmarksStore.activeSort = sort;
+  if (category.value) {
+    bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
+  }
+}
+
   onMounted(() => {
     if (typeof route.params.alias === 'string') {
     category.value = categoryStore.getCategoryByAlias(route.params.alias)
     if (category.value) {
-      bookmarksStore.fetchBookmarks(category.value.id)
+      bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
     }
   }
   })
@@ -32,7 +40,7 @@ onBeforeRouteUpdate((to) => {
   if (typeof to.params.alias === 'string') {
     category.value = categoryStore.getCategoryByAlias(to.params.alias)
     if (category.value) {
-      bookmarksStore.fetchBookmarks(category.value.id)
+      bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
     }
   }
 })
@@ -46,6 +54,7 @@ onBeforeRouteUpdate((to) => {
       v-for="item in bookmarksStore.bookmarks" :key="item.id"
       v-bind="item"
       />
+      <BookmarkSort :option="bookmarksStore.activeSort" @sort="sortBookmarks"/>
     </div>
   </div>
 </template>
