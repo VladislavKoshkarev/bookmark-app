@@ -5,7 +5,8 @@ export const API_ROUTES = {
 	categories: `categories`,
   bookmarks: {
     get: (id: number) => `categories/${id}/bookmarks`,
-    delete: (id: number) => `bookmarks/${id}`
+    delete: (id: number) => `bookmarks/${id}`,
+    create: `bookmarks`,
   }
 };
 

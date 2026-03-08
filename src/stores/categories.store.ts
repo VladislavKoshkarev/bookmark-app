@@ -30,7 +30,7 @@ export const useCategoriesStore = defineStore('categories', () => {
 	}
   function getCategoryByAlias(alias: string): Category | undefined {
     if (typeof alias === 'string') {
-      return categories.value.find((cat) => cat.alias === alias)
+      return categories.value.find((cat) => cat.alias == alias)
     }
   }
 
