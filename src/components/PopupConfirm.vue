@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import TextButton from './TextButton.vue';
+import TextButton from './TextButton.vue'
 
-const { isOpened, text} = defineProps<{ 
-  isOpened: boolean,
-  text: string,
+const { isOpened, text } = defineProps<{
+  isOpened: boolean
+  text: string
 }>()
 const emit = defineEmits<{
-  (e: 'confirm'): void,
-  (e: 'cancel'): void,
+  (e: 'confirm'): void
+  (e: 'cancel'): void
 }>()
 </script>
 

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useCategoriesStore } from '@/stores/categories.store';
-import { onMounted } from 'vue';
-import IconButton from './IconButton.vue';
-import PlusIcon from '@/icons/PlusIcon.vue';
+import { useCategoriesStore } from '@/stores/categories.store'
+import { onMounted } from 'vue'
+import IconButton from './IconButton.vue'
+import PlusIcon from '@/icons/PlusIcon.vue'
 
 const store = useCategoriesStore()
 
@@ -12,16 +12,18 @@ onMounted(() => {
 </script>
 
 <template>
-      <ul class="category-list">
-        <li class="list-item" v-for="item in store.categories" :key="item.id">
-          <RouterLink active-class="active-link" :to="`/main/${item.alias}`">{{ item.name }}</RouterLink>
-        </li>
-        <li>
-          <IconButton @click="store.createCategory">
-            <PlusIcon />
-          </IconButton>
+  <ul class="category-list">
+    <li class="list-item" v-for="item in store.categories" :key="item.id">
+      <RouterLink active-class="active-link" :to="`/main/${item.alias}`">{{
+        item.name
+      }}</RouterLink>
     </li>
-      </ul>
+    <li>
+      <IconButton @click="store.createCategory">
+        <PlusIcon />
+      </IconButton>
+    </li>
+  </ul>
 </template>
 
 <style scoped>

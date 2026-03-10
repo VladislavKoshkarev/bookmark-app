@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, useTemplateRef } from 'vue';
+import { onMounted, useTemplateRef } from 'vue'
 
 const data = defineModel<string>()
-const { isFocused = false } = defineProps<{ isFocused?:boolean }>()
-const input = useTemplateRef<HTMLInputElement>("input")
+const { isFocused = false } = defineProps<{ isFocused?: boolean }>()
+const input = useTemplateRef<HTMLInputElement>('input')
 
 onMounted(() => {
   if (isFocused && input.value) {
@@ -13,7 +13,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <input class="input-string" v-model="data" ref="input">
+  <input class="input-string" v-model="data" ref="input" />
 </template>
 
 <style scoped>
@@ -25,6 +25,6 @@ onMounted(() => {
   width: 200px;
 }
 .input-string::placeholder {
-color: var(--color-inactive);
+  color: var(--color-inactive);
 }
 </style>

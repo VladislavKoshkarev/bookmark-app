@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import IconButton from './IconButton.vue';
-import PlusIconBig from '@/icons/PlusIconBig.vue';
-import InputString from './InputString.vue';
-import OkIcon from '@/icons/OkIcon.vue';
-import { useBookmarksStore } from '@/stores/bookmarks.store';
+import { ref } from 'vue'
+import IconButton from './IconButton.vue'
+import PlusIconBig from '@/icons/PlusIconBig.vue'
+import InputString from './InputString.vue'
+import OkIcon from '@/icons/OkIcon.vue'
+import { useBookmarksStore } from '@/stores/bookmarks.store'
 
 const { category_id } = defineProps<{ category_id: number }>()
 const isEdited = ref<boolean>(false)
@@ -15,7 +15,7 @@ function addBookmark() {
   if (newUrl.value) {
     bookmarksStore.createBookmark(newUrl.value, category_id)
   }
-  newUrl.value = '';
+  newUrl.value = ''
   toggleIsEdited()
 }
 
@@ -30,7 +30,7 @@ function toggleIsEdited() {
       <PlusIconBig></PlusIconBig>
     </IconButton>
     <div v-else>
-      <InputString v-model="newUrl" is-focused/>
+      <InputString v-model="newUrl" is-focused />
       <IconButton @click="addBookmark">
         <OkIcon></OkIcon>
       </IconButton>

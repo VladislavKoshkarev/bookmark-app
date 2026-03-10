@@ -1,24 +1,26 @@
 <script setup lang="ts">
-const { option } = defineProps<{ option: string }>();
+const { option } = defineProps<{ option: string }>()
 
 const SORT_OPTIONS = [
-  { option: "date", name: "По дате" },
-  { option: "title", name: "По названию" }
+  { option: 'date', name: 'По дате' },
+  { option: 'title', name: 'По названию' },
 ]
 
 const emit = defineEmits<{
-  (e: 'sort', option: string): void;
-}>();
+  (e: 'sort', option: string): void
+}>()
 </script>
 
 <template>
   <div class="sort">
-    <button v-for="item in SORT_OPTIONS"
-    @click="() => emit('sort', item.option)"
-    :key="item.option"
-    class="sort-item"
-    :class="option === item.option ? 'active' : ''">
-      {{ item.name  }}
+    <button
+      v-for="item in SORT_OPTIONS"
+      @click="() => emit('sort', item.option)"
+      :key="item.option"
+      class="sort-item"
+      :class="option === item.option ? 'active' : ''"
+    >
+      {{ item.name }}
     </button>
   </div>
 </template>
