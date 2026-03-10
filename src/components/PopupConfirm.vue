@@ -12,17 +12,19 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <Teleport to="body">
-    <div class="popup__cover" v-if="isOpened">
-      <div class="popup">
-        {{ text }}
-        <div class="popup__actions">
-          <TextButton @click="emit('confirm')">Да</TextButton>
-          <TextButton @click="emit('cancel')">Нет</TextButton>
+  <Transition name="fade">
+    <Teleport to="body">
+      <div class="popup__cover" v-if="isOpened">
+        <div class="popup">
+          {{ text }}
+          <div class="popup__actions">
+            <TextButton @click="emit('confirm')">Да</TextButton>
+            <TextButton @click="emit('cancel')">Нет</TextButton>
+          </div>
         </div>
       </div>
-    </div>
-  </Teleport>
+    </Teleport>
+  </Transition>
 </template>
 
 <style scoped>
@@ -47,5 +49,14 @@ const emit = defineEmits<{
   margin-top: 16px;
   display: flex;
   gap: 10px;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
 }
 </style>
