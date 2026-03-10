@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@clerk/vue": "^1.17.12",
+    "@vueuse/core": "^14.2.1",
     "axios": "^1.13.4",
     "pinia": "^3.0.4",
     "uuid": "^13.0.0",
