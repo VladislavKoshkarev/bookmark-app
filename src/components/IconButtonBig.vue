@@ -20,7 +20,7 @@ const { size = 32 } = defineProps<{ size?: number }>()
   border-radius: 50px;
   border: 3px solid var(--color-bg);
 }
-.button-icon:hover {
+.button-icon-big:hover {
   background: var(--color-bg-hover);
 }
 </style>
