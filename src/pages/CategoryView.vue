@@ -37,6 +37,9 @@ watch(
     if (typeof route.params.alias === 'string') {
       category.value = categoryStore.getCategoryByAlias(route.params.alias)
     }
+    if (category.value) {
+      bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
+    } 
   },
 )
 
