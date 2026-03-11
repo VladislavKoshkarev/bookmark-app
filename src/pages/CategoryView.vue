@@ -67,7 +67,7 @@ onBeforeRouteUpdate((to) => {
   margin-top: 30px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(10, 350px);
+  grid-auto-rows: 350px;
   gap: 24px;
 }
 </style>
