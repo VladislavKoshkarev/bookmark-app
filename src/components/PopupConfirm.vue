@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import TextButton from './TextButton.vue'
+import { useTemplateRef } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 
 const { isOpened, text } = defineProps<{
   isOpened: boolean
@@ -9,13 +11,15 @@ const emit = defineEmits<{
   (e: 'confirm'): void
   (e: 'cancel'): void
 }>()
+const popup = useTemplateRef('popup')
+onClickOutside(popup, () => emit('cancel'))
 </script>
 
 <template>
   <Transition name="fade">
     <Teleport to="body">
       <div class="popup__cover" v-if="isOpened">
-        <div class="popup">
+        <div class="popup" ref="popup">
           {{ text }}
           <div class="popup__actions">
             <TextButton @click="emit('confirm')">Да</TextButton>
