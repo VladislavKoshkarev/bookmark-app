@@ -5,11 +5,18 @@ import PlusIconBig from '@/icons/PlusIconBig.vue'
 import InputString from './InputString.vue'
 import OkIcon from '@/icons/OkIcon.vue'
 import { useBookmarksStore } from '@/stores/bookmarks.store'
+import { useTemplateRef } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 const { category_id } = defineProps<{ category_id: number }>()
 const isEdited = ref<boolean>(false)
 const newUrl = ref<string>()
 const bookmarksStore = useBookmarksStore()
+const card = useTemplateRef('card')
+
+onClickOutside(card, () => {
+  if (isEdited.value) addBookmark()
+})
 
 function addBookmark() {
   if (newUrl.value) {
@@ -25,7 +32,7 @@ function toggleIsEdited() {
 </script>
 
 <template>
-  <div class="bookmark-add">
+  <div class="bookmark-add" ref="card">
     <IconButton :size="48" v-if="!isEdited" @click="toggleIsEdited">
       <PlusIconBig></PlusIconBig>
     </IconButton>
