@@ -1,0 +1,15 @@
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    ca-certificates
+
+WORKDIR /app
+
+COPY bookmark-api-linux-amd64 /app/api
+
+RUN chmod +x /app/api
+
+EXPOSE 3000
+
+CMD ["/app/api"]
