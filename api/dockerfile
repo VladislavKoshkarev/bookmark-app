@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
-COPY bookmark-api-linux-amd64 /app/api
+COPY api/bookmark-api-linux-amd64 /app/api
 
 RUN chmod +x /app/api
 
