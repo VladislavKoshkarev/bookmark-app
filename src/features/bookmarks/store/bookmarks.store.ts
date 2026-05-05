@@ -1,5 +1,5 @@
 import { API_ROUTES, http } from '@/api'
-import type { Bookmark } from '@/interfaces/bookmark'
+import type { Bookmark } from '@/features/bookmarks/types/bookmark'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
