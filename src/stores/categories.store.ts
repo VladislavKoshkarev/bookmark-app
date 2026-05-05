@@ -1,4 +1,4 @@
-import { API_ROUTES, http } from '@/api'
+import { API_ROUTES, http } from '@/shared/apiClient'
 import type { Category } from '@/interfaces/category'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
