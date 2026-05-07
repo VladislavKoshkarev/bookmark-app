@@ -1,45 +1,69 @@
-import { API_ROUTES, http } from '@/shared/apiClient'
-import type { Category } from '@/interfaces/category'
+import type { Category, State } from '@/features/categories/types/category'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { v4 as uuidv4 } from 'uuid'
+import { categoriesService } from '../api/categories.service'
 
-export const useCategoriesStore = defineStore('categories', () => {
-  const categories = ref<Category[]>([])
-  async function fetchCategories() {
-    const { data } = await http.get<Category[]>(API_ROUTES.categories)
-    categories.value = data
-  }
-  async function createCategory() {
-    const { data } = await http.post<Category>(API_ROUTES.categories, {
-      name: 'Новая категория',
-      alias: uuidv4(),
-    })
-    categories.value.push(data)
-  }
-  async function updateCategory(name: string, alias: string, id: number) {
-    await http.put<Category>(API_ROUTES.categories + '/' + id, {
-      name,
-      alias,
-    })
-    fetchCategories()
-  }
-  async function deleteCategory(id: number) {
-    await http.delete<Category>(API_ROUTES.categories + '/' + id)
-    fetchCategories()
-  }
-  function getCategoryByAlias(alias: string): Category | undefined {
-    if (typeof alias === 'string') {
-      return categories.value.find((cat) => cat.alias == alias)
-    }
-  }
+export const useCategoriesStore = defineStore('categories', {
+  state: (): State => ({
+    categories: [],
+    loading: false,
+    error: null,
+    id: 1,
+    name: '',
+    alias: '',
+  }),
+  actions: {
+    async fetchCategories() {
+      this.loading = true
+      this.error = null
 
-  return {
-    categories,
-    fetchCategories,
-    createCategory,
-    getCategoryByAlias,
-    updateCategory,
-    deleteCategory,
-  }
+      try {
+        this.categories = await categoriesService.fetchCategories()
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      } finally {
+        this.loading = false
+      }
+    },
+    async createCategory() {
+      this.error = null
+
+      try {
+        const newCategory = await categoriesService.createCategory()
+        this.categories.push(newCategory)
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      }
+    },
+    async updateCategory(name: string, alias: string, id: number) {
+      this.error = null
+
+      try {
+        await categoriesService.updateCategory(name, alias, id)
+        const category = this.categories.find((cat) => cat.id == id)
+        if (category) {
+          category.name = name
+        }
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      }
+    },
+    async deleteCategory(id: number) {
+      this.loading = true
+      this.error = null
+
+      try {
+        await categoriesService.deleteCategory(id)
+        this.categories = this.categories.filter((c) => c.id !== id)
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      } finally {
+        this.loading = false
+      }
+    },
+    getCategoryByAlias(alias: string): Category | undefined {
+      if (typeof alias === 'string') {
+        return this.categories.find((cat) => cat.alias == alias)
+      }
+    },
+  },
 })
