@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { Category } from '@/interfaces/category'
-import IconButton from './IconButton.vue'
+import IconButton from '@/components/ui/IconButton.vue'
 import EditIcon from '@/icons/EditIcon.vue'
 import { ref } from 'vue'
 import TrashIcon from '@/icons/TrashIcon.vue'
 import OkIcon from '@/icons/OkIcon.vue'
-import InputString from './InputString.vue'
-import { useCategoriesStore } from '@/stores/categories.store'
+import InputString from '@/components/ui/InputString.vue'
+import { useCategoriesStore } from '@/features/categories/store/categories.store'
 import { useRouter } from 'vue-router'
 
 const { category } = defineProps<{ category: Category }>()
