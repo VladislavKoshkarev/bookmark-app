@@ -1,31 +1,51 @@
-import { API_ROUTES, http } from '@/api'
-import type { Bookmark } from '@/features/bookmarks/types/bookmark'
+import { type State, SortType } from '@/features/bookmarks/types/bookmark'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { bookmarksService } from '../api/bookmarks.service'
 
-export const useBookmarksStore = defineStore('bookmarks', () => {
-  const bookmarks = ref<Bookmark[]>([])
-  const activeSort = ref<string>('date')
-  async function fetchBookmarks(categoryId: number, sort: string) {
-    const { data } = await http.get<Bookmark[]>(API_ROUTES.bookmarks.get(categoryId), {
-      params: {
-        sort,
-      },
-    })
-    bookmarks.value = data
-  }
-  async function deleteBookmark(id: number, categoryId: number) {
-    await http.delete<Bookmark[]>(API_ROUTES.bookmarks.delete(id))
-    fetchBookmarks(categoryId, activeSort.value)
-  }
+export const useBookmarksStore = defineStore('bookmarks', {
+  state: (): State => ({
+    bookmarks: [],
+    loading: false,
+    error: null,
+    categoryId: 1,
+    activeSort: SortType.Date,
+  }),
+  actions: {
+    setCategoryId(categoryId: number) {
+      this.categoryId = categoryId
+    },
+    async fetchBookmarks() {
+      this.loading = true
+      this.error = null
 
-  async function createBookmark(url: string, category_id: number) {
-    const { data } = await http.post<Bookmark>(API_ROUTES.bookmarks.create, {
-      url,
-      category_id,
-    })
-    bookmarks.value.push(data)
-  }
+      try {
+        this.bookmarks = await bookmarksService.fetchBookmarks(this.categoryId, this.activeSort)
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      } finally {
+        this.loading = false
+      }
+    },
+    async deleteBookmark(id: number) {
+      this.error = null
 
-  return { bookmarks, activeSort, fetchBookmarks, deleteBookmark, createBookmark }
+      try {
+        await bookmarksService.deleteBookmark(id)
+
+        this.bookmarks = this.bookmarks.filter((b) => b.id !== id)
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      }
+    },
+    async createBookmark(url: string, categoryId: number) {
+      this.error = null
+
+      try {
+        const newBookmark = await bookmarksService.createBookmark(url, categoryId)
+        this.bookmarks.push(newBookmark)
+      } catch (e: unknown) {
+        this.error = e instanceof Error ? e.message : 'Unknown error'
+      }
+    },
+  },
 })

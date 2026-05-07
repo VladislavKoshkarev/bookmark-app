@@ -9,7 +9,7 @@ import { ref } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import OkIcon from '@/icons/OkIcon.vue'
 
-const { id, category_id, title, image, url } = defineProps<Bookmark>()
+const { id, title, image, url } = defineProps<Bookmark>()
 
 const bookmarksStore = useBookmarksStore()
 
@@ -37,7 +37,7 @@ function toggleIsOpened() {
 
 function deleteBookmark() {
   toggleIsOpened()
-  bookmarksStore.deleteBookmark(id, category_id)
+  bookmarksStore.deleteBookmark(id)
 }
 
 function clickHandler(event: Event) {
