@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import BookmarkAdd from '@/components/BookmarkAdd.vue'
-import BookmarkCard from '@/components/BookmarkCard.vue'
-import BookmarkSort from '@/components/BookmarkSort.vue'
-import CategoryHeader from '@/components/CategoryHeader.vue'
-import type { Category } from '@/interfaces/category'
-import { useBookmarksStore } from '@/stores/bookmarks.store'
+import BookmarkAdd from '@/features/bookmarks/components/BookmarkAdd.vue'
+import BookmarkCard from '@/features/bookmarks/components/BookmarkCard.vue'
+import BookmarkSort from '@/features/bookmarks/components/BookmarkSort.vue'
+import CategoryHeader from '@/features/categories/components/CategoryHeader.vue'
+import type { Category } from '@/features/categories/types/category'
+import { useBookmarksStore } from '@/features/bookmarks/store/bookmarks.store'
 
-import { useCategoriesStore } from '@/stores/categories.store'
+import { useCategoriesStore } from '@/features/categories/store/categories.store'
 import { onMounted, ref, watch } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
+import type { SortType } from '@/features/bookmarks/types/bookmark'
 
 const route = useRoute()
 const categoryStore = useCategoriesStore()

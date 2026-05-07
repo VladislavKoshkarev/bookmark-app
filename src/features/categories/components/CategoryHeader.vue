@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Category } from '@/interfaces/category'
+import type { Category } from '@/features/categories/types/category'
 import IconButton from '@/components/ui/IconButton.vue'
 import EditIcon from '@/icons/EditIcon.vue'
 import { ref } from 'vue'
