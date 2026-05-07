@@ -16,10 +16,9 @@ const categoryStore = useCategoriesStore()
 const bookmarksStore = useBookmarksStore()
 const category = ref<Category>()
 
-function sortBookmarks(sort: string) {
-  bookmarksStore.activeSort = sort
+function sortBookmarks(sort: SortType) {
   if (category.value) {
-    bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
+    bookmarksStore.applyFilters(category.value.id, sort)
   }
 }
 
@@ -27,7 +26,7 @@ onMounted(() => {
   if (typeof route.params.alias === 'string') {
     category.value = categoryStore.getCategoryByAlias(route.params.alias)
     if (category.value) {
-      bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
+      bookmarksStore.applyFilters(category.value.id)
     }
   }
 })
@@ -39,8 +38,8 @@ watch(
       category.value = categoryStore.getCategoryByAlias(route.params.alias)
     }
     if (category.value) {
-      bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
-    } 
+      bookmarksStore.applyFilters(category.value.id)
+    }
   },
 )
 
@@ -48,7 +47,7 @@ onBeforeRouteUpdate((to) => {
   if (typeof to.params.alias === 'string') {
     category.value = categoryStore.getCategoryByAlias(to.params.alias)
     if (category.value) {
-      bookmarksStore.fetchBookmarks(category.value.id, bookmarksStore.activeSort)
+      bookmarksStore.applyFilters(category.value.id)
     }
   }
 })

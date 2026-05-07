@@ -11,9 +11,6 @@ export const useBookmarksStore = defineStore('bookmarks', {
     activeSort: SortType.Date,
   }),
   actions: {
-    setCategoryId(categoryId: number) {
-      this.categoryId = categoryId
-    },
     async fetchBookmarks() {
       this.loading = true
       this.error = null
@@ -25,6 +22,15 @@ export const useBookmarksStore = defineStore('bookmarks', {
       } finally {
         this.loading = false
       }
+    },
+    async applyFilters(categoryId?: number, activeSort?: SortType) {
+      if (categoryId) {
+        this.categoryId = categoryId
+      }
+      if (activeSort) {
+        this.activeSort = activeSort
+      }
+      await this.fetchBookmarks()
     },
     async deleteBookmark(id: number) {
       this.error = null
