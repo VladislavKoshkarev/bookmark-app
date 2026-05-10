@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { SortType } from '../types/bookmark'
+
 const { option } = defineProps<{ option: string }>()
 
 const SORT_OPTIONS = [
-  { option: 'date', name: 'По дате' },
-  { option: 'title', name: 'По названию' },
+  { option: SortType.Date, name: 'По дате' },
+  { option: SortType.Title, name: 'По названию' },
 ]
 
 const emit = defineEmits<{
-  (e: 'sort', option: string): void
+  (e: 'sort', option: SortType): void
 }>()
 </script>
 

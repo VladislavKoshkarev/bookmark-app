@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import IconButton from './IconButton.vue'
+import IconButton from '@/components/ui/IconButton.vue'
 import PlusIconBig from '@/icons/PlusIconBig.vue'
-import InputString from './InputString.vue'
+import InputString from '@/components/ui/InputString.vue'
 import OkIcon from '@/icons/OkIcon.vue'
-import { useBookmarksStore } from '@/stores/bookmarks.store'
+import { useBookmarksStore } from '@/features/bookmarks/store/bookmarks.store'
 import { useTemplateRef } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
