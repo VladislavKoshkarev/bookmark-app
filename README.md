@@ -1,48 +1,79 @@
-# bookmark-app
+# Bookmark App
 
-This template should help get you started developing with Vue 3 in Vite.
+Приложение для управления закладками, разработанное на Vue 3 и TypeScript.
 
-## Recommended IDE Setup
+Проект позволяет сохранять ссылки, распределяя их по категориям.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+<img width="1502" height="751" alt="Снимок экрана 2026-08-20 в 16 09 56" src="https://github.com/user-attachments/assets/40f4efb9-7045-45ea-b652-aac7f58898d2" />
 
-## Recommended Browser Setup
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+---
 
-## Type Support for `.vue` Imports in TS
+## Возможности
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+* создание закладок;
+* выбор категории при создании;
+* удаление закладок;
+* просмотр списка категорий;
+* фильтрация закладок по выбранной категории;
+* сортировка закладок по дате добавления и названию;
+* обработка ошибок при работе с API;
+* регистрация и авторизация пользователей.
 
-## Customize configuration
+---
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Архитектура
 
-## Project Setup
+В проекте используются следующие подходы:
 
-```sh
+* организация кода по функциональным модулям;
+* разделение бизнес-логики и компонентов интерфейса;
+* отдельный сервисный слой для работы с API;
+* централизованное управление состоянием приложения с помощью Pinia;
+* переиспользуемые UI-компоненты.
+
+---
+
+## Используемые технологии
+
+* Vue 3
+* TypeScript
+* Pinia
+* Vue Router
+* Vite
+* Clerk
+
+---
+
+## Запуск проекта
+
+### Клонирование репозитория
+
+```bash
+git clone https://github.com/VladislavKoshkarev/bookmark-app.git
+cd bookmark-app
+```
+
+### Установка зависимостей
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Запуск приложения
 
-```sh
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Команда автоматически:
 
-```sh
-npm run build
-```
+* запускает локальный backend;
+* определяет подходящий бинарный файл в зависимости от операционной системы и архитектуры процессора;
+* запускает Vite Dev Server.
 
-### Lint with [ESLint](https://eslint.org/)
+После запуска приложение будет доступно по адресу:
 
-```sh
-npm run lint
+```text
+http://localhost:5173
 ```
