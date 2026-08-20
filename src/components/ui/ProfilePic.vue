@@ -24,4 +24,9 @@ const { user } = useUser()
   width: 80px;
   height: 80px;
 }
+.profile-avatar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 </style>

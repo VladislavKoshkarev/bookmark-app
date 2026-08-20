@@ -1,1 +1,1 @@
-<template>Index</template>
+<template>Выберите категорию или создайте новую!</template>
