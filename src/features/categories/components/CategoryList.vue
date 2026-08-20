@@ -32,7 +32,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 24px;
   padding: 0;
-  margin: 0;
+  margin: 20px 0;
 }
 .category-list li {
   list-style: none;
