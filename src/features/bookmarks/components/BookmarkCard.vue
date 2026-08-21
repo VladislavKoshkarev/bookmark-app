@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import TrashIconWhite from '@/icons/TrashIconWhite.vue'
-import type { Bookmark } from '@/interfaces/bookmark'
-import IconButtonBig from './IconButtonBig.vue'
+import type { Bookmark } from '@/features/bookmarks/types/bookmark'
+import IconButtonBig from '@/components/ui/IconButtonBig.vue'
 import LinkIconWhite from '@/icons/LinkIconWhite.vue'
-import { useBookmarksStore } from '@/stores/bookmarks.store'
-import PopupConfirm from './PopupConfirm.vue'
+import { useBookmarksStore } from '@/features/bookmarks/store/bookmarks.store'
+import PopupConfirm from '@/components/ui/PopupConfirm.vue'
 import { ref } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import OkIcon from '@/icons/OkIcon.vue'
 
-const { id, category_id, title, image, url } = defineProps<Bookmark>()
+const { id, title, image, url } = defineProps<Bookmark>()
 
 const bookmarksStore = useBookmarksStore()
 
@@ -25,7 +25,7 @@ function openLink() {
 
 function copyLink() {
   isCopied.value = true
-  copy(url);
+  copy(url)
   setTimeout(() => {
     isCopied.value = false
   }, 1000)
@@ -37,19 +37,20 @@ function toggleIsOpened() {
 
 function deleteBookmark() {
   toggleIsOpened()
-  bookmarksStore.deleteBookmark(id, category_id)
+  bookmarksStore.deleteBookmark(id)
 }
 
 function clickHandler(event: Event) {
   if (event.currentTarget instanceof HTMLElement) {
     switch (event.currentTarget.className) {
-      case 'button-icon-big bookmark__btn-delete': 
-      toggleIsOpened();
-      break;
-      case 'button-icon-big bookmark__btn-copy': 
-      copyLink()
-      break;
-      default: openLink();
+      case 'button-icon-big bookmark__btn-delete':
+        toggleIsOpened()
+        break
+      case 'button-icon-big bookmark__btn-copy':
+        copyLink()
+        break
+      default:
+        openLink()
     }
   }
 }
@@ -60,13 +61,21 @@ function clickHandler(event: Event) {
     <div class="bookmark-card__image" :style="{ backgroundImage: `url(${image})` }"></div>
     <div class="bookmark-card__title">{{ title }}</div>
     <div class="bookmark-card__footer">
-        <IconButtonBig @click.stop="(event: Event) => clickHandler(event)" class="bookmark__btn-delete" :class="{ active: isOpened}">
-          <TrashIconWhite />
-        </IconButtonBig>
-        <IconButtonBig @click.stop="(event: Event) => clickHandler(event)" class="bookmark__btn-copy" :class="{ active: isCopied}">
-          <OkIcon v-if="isCopied"/>
-          <LinkIconWhite v-else/>
-        </IconButtonBig>
+      <IconButtonBig
+        @click.stop="(event: Event) => clickHandler(event)"
+        class="bookmark__btn-delete"
+        :class="{ active: isOpened }"
+      >
+        <TrashIconWhite />
+      </IconButtonBig>
+      <IconButtonBig
+        @click.stop="(event: Event) => clickHandler(event)"
+        class="bookmark__btn-copy"
+        :class="{ active: isCopied }"
+      >
+        <OkIcon v-if="isCopied" />
+        <LinkIconWhite v-else />
+      </IconButtonBig>
     </div>
     <PopupConfirm
       text="Хотите удалить закладку?"

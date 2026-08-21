@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useCategoriesStore } from '@/stores/categories.store'
+import { useCategoriesStore } from '@/features/categories/store/categories.store'
 import { onMounted } from 'vue'
-import IconButton from './IconButton.vue'
+import IconButton from '@/components/ui/IconButton.vue'
 import PlusIcon from '@/icons/PlusIcon.vue'
 
 const store = useCategoriesStore()
@@ -32,7 +32,7 @@ onMounted(() => {
   flex-direction: column;
   gap: 24px;
   padding: 0;
-  margin: 0;
+  margin: 20px 0;
 }
 .category-list li {
   list-style: none;
